@@ -6,7 +6,7 @@
       "syntax": "typescript",
       "decorators": true,
       "dynamicImport": true
-    },
+    }
   },
   "minify": true
 }
