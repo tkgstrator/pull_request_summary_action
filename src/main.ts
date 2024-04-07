@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {Octokit} from '@octokit/core'
-import {OpenAIApi, Configuration} from 'openai'
+import OpenAI from 'openai'
 
 async function run(): Promise<void> {
   try {
@@ -20,14 +20,11 @@ async function run(): Promise<void> {
       auth: github_token
     })
 
-    const configuration = new Configuration({
+    const openai = new OpenAI({
       apiKey: openai_key
     })
 
-    const openai = new OpenAIApi(configuration)
-
     // get the pr details
-
     const {repo, owner, number} = github.context.issue
     try {
       const response = await octokit.request(
@@ -43,8 +40,7 @@ async function run(): Promise<void> {
       )
 
       const {title, body, patch_url} = response.data
-
-      const summaryResponse = await openai.createCompletion({
+      const summaryResponse = await openai.completions.create({
         model: 'text-davinci-003',
         prompt: `Pull Request Summary: Title: ${title} Description: ${
           body || ''
@@ -62,7 +58,7 @@ async function run(): Promise<void> {
           owner,
           repo,
           issue_number: number,
-          body: summaryResponse.data.choices[0].text || '',
+          body: summaryResponse.choices[0].text || '',
           headers: {
             'X-GitHub-Api-Version': '2022-11-28'
           }
