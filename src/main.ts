@@ -41,7 +41,7 @@ async function run(): Promise<void> {
 
       const {title, body, patch_url} = response.data
       const summaryResponse = await openai.completions.create({
-        model: 'text-davinci-003',
+        model: 'gpt-3.5-turbo-0125',
         prompt: `Pull Request Summary: Title: ${title} Description: ${
           body || ''
         } Diff: ${patch_url}`,

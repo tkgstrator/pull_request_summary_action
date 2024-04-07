@@ -1,11 +1,12 @@
 {
-  "name": "typescript-action",
+  "name": "pull_request_summary_action",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Update Pull Request Summary by ChatGPT",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rimraf lib",
+    "build": "swc src -d lib",
     "format": "prettier --write '**/*.ts'",
     "format:fix": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
@@ -28,7 +29,10 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^6.0.0",
-    "openai": "^4.33.0"
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.4.12",
+    "openai": "^4.33.0",
+    "swc": "^1.0.11"
   },
   "devDependencies": {
     "@types/node": "^20.1.0",
