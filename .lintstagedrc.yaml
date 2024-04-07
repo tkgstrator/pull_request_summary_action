@@ -1,0 +1,4 @@
+---
+'**/*.ts':
+  - bun lint
+  - bun format
