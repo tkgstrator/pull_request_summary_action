@@ -22,13 +22,14 @@ jobs:
 
     steps:
       - name: Checkout
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: bun install 
+        run: |
+          bun install 
 
       - name: Rebuild the dist/ directory
         run: |
