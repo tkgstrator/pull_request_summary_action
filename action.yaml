@@ -3,7 +3,7 @@ author: Karthikeyan
 description: Generating explanation of PR which has been opened by the developer.
 inputs:
   OPENAI_API_KEY:
-    description: Open AI API key
+    description: OpenAI API key
     required: true
   GITHUB_TOKEN:
     description: Github Token

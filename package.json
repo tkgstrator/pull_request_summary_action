@@ -1,15 +1,15 @@
 {
   "name": "pull_request_summary_action",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Update Pull Request Summary by ChatGPT",
   "main": "lib/main.js",
   "scripts": {
     "prebuild": "rimraf lib",
-    "build": "swc src -d lib",
+    "build": "swc src -d lib --strip-leading-paths",
     "format": "prettier --write '**/*.ts'",
     "format:fix": "prettier --check '**/*.ts'",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint --max-warnings=0 src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
