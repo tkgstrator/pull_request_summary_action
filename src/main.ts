@@ -13,8 +13,10 @@ async function run(): Promise<void> {
       return
     }
 
-    const github_token = core.getInput('GITHUB_TOKEN')
-    const openai_key = core.getInput('OPENAI_API_KEY')
+    const github_token: string = core.getInput('GITHUB_TOKEN')
+    const openai_key: string = core.getInput('OPENAI_API_KEY')
+    const model_name: string = core.getInput('MODEL_NAME')
+    const api_version: string = core.getInput('VERSION')
 
     const octokit = new Octokit({
       auth: github_token
@@ -34,14 +36,14 @@ async function run(): Promise<void> {
           repo,
           pull_number: number,
           headers: {
-            'X-GitHub-Api-Version': '2022-11-28'
+            'X-GitHub-Api-Version': api_version
           }
         }
       )
 
       const {title, body, patch_url} = response.data
       const summaryResponse = await openai.completions.create({
-        model: 'gpt-3.5-turbo-0125',
+        model: model_name,
         prompt: `Pull Request Summary: Title: ${title} Description: ${
           body || ''
         } Diff: ${patch_url}`,
@@ -60,7 +62,7 @@ async function run(): Promise<void> {
           issue_number: number,
           body: summaryResponse.choices[0].text || '',
           headers: {
-            'X-GitHub-Api-Version': '2022-11-28'
+            'X-GitHub-Api-Version': api_version
           }
         }
       )

@@ -1,13 +1,21 @@
-name: Pull Request Summary Example
+name: Generate Pull Request Summary by ChatGPT 
 author: tkgstrator 
 description: Generating explanation of PR which has been opened by the developer.
 inputs:
   OPENAI_API_KEY:
-    description: OpenAI API key
+    description: OpenAI API Key
     required: true
+  MODEL_NAME:
+    description: OpenAI Model Name
+    required: false
+    default: "gpt-3.5-turbo-0125"
   GITHUB_TOKEN:
     description: Github Token
     required: true
+  VERSION:
+    description: Version of GitHub API
+    required: false
+    default: "2022-11-28"
 runs:
   using: 'bun'
   main: 'dist/index.js'
