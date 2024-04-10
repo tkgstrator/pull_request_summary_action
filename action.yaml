@@ -17,5 +17,5 @@ inputs:
     required: false
     default: "2022-11-28"
 runs:
-  using: 'bun'
+  using: 'node20'
   main: 'dist/index.js'
