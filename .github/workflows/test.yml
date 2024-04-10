@@ -37,4 +37,5 @@ jobs:
       - name: Test
         uses: ./
         with:
-          milliseconds: 1000
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
