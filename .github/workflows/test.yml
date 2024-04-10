@@ -21,7 +21,7 @@ jobs:
           bun install
       
       - name: Build 
-      - run: |
+        run: |
           bun run format
           bun run lint
           bun run package
@@ -31,8 +31,9 @@ jobs:
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Test
         uses: ./
         with:
