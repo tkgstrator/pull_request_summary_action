@@ -1,7 +1,10 @@
 name: Test
 
 on: # rebuild any PRs and main branch changes
-  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+      - '!main'
 
 jobs:
   build: # make sure build/ci work properly

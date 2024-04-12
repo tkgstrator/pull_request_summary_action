@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
       - '**'
-      - 'develop'
-
+      - '!main'
+      
 jobs:
   version:
     if: github.base_ref == 'master'
