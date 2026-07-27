@@ -42,11 +42,16 @@ async function run(): Promise<void> {
       )
 
       const {title, body, patch_url} = response.data
-      const summaryResponse = await openai.completions.create({
+      const summaryResponse = await openai.chat.completions.create({
         model: model_name,
-        prompt: `Pull Request Summary: Title: ${title} Description: ${
-          body || ''
-        } Diff: ${patch_url}`,
+        messages: [
+          {
+            role: 'system',
+            content: `Pull Request Summary: Title: ${title} Description: ${
+              body || ''
+            } Diff: ${patch_url}`
+          }
+        ],
         temperature: 0.7,
         max_tokens: 100,
         top_p: 1,

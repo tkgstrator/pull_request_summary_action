@@ -1,0 +1,29 @@
+name: Continuous Deployment
+
+on:
+  pull_request:
+    branches:
+      - '**'
+      - 'main'
+      - 'develop'
+    types: [closed]
+
+jobs:
+  set_tag:
+    if: github.event.pull_request.merged == true && github.base_ref == 'master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Version
+        id: current_version
+        run: |
+          echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+
+      - name: Set Tags
+        run: |
+          git fetch origin ${{ github.event.pull_request.head.ref }}
+          git checkout ${{ github.event.pull_request.head.ref }}
+          git tag `echo '${{ github.event.pull_request.head.ref }}'`
+          git push origin `echo '${{ github.event.pull_request.head.ref }}'`
